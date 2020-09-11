@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "800504569038",
+    "firebase_url": "https://vr-mini-golf.firebaseio.com",
+    "project_id": "vr-mini-golf",
+    "storage_bucket": "vr-mini-golf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:800504569038:android:cf8cfefc7379a5130d849f",
+        "android_client_info": {
+          "package_name": "com.saritasa.vrminigolf"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "800504569038-eu3nlq0etm638rqbgpd6h5a6tjf38i34.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQg3ClGZWs5yolLBDmq3a2ZkccWMUF94k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "800504569038-eu3nlq0etm638rqbgpd6h5a6tjf38i34.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

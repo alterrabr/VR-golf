@@ -1,0 +1,143 @@
+{
+  "NumberOfQuestionsForSession" : 4,
+  "Questions" : [ {
+    "Answer1" : "Security",
+    "Answer2" : "Authentication",
+    "Answer3" : "Monitoring",
+    "NumberOfCorrectAnswer" : 1,
+    "Question" : "Firewall in computer is used for"
+  }, {
+    "Answer1" : "DOS",
+    "Answer2" : "Mac",
+    "Answer3" : "C",
+    "NumberOfCorrectAnswer" : 3,
+    "Question" : "Which of the following is not an operating system?"
+  }, {
+    "Answer1" : "Oracle",
+    "Answer2" : "Sybase",
+    "Answer3" : "COBOL",
+    "NumberOfCorrectAnswer" : 3,
+    "Question" : "Which of the following is not a database management software?"
+  }, {
+    "Answer1" : "4",
+    "Answer2" : "7",
+    "Answer3" : "11",
+    "NumberOfCorrectAnswer" : 2,
+    "Question" : "Number of layers in the OSI (Open Systems Interconnection) Model"
+  }, {
+    "Answer1" : "128",
+    "Answer2" : "64",
+    "Answer3" : "32",
+    "NumberOfCorrectAnswer" : 1,
+    "Question" : "1024 bit is equal to how many bytes?"
+  }, {
+    "Answer1" : "IBM",
+    "Answer2" : "Apple",
+    "Answer3" : "Microsoft",
+    "NumberOfCorrectAnswer" : 2,
+    "Question" : "Mac Operating System is developed by which company?"
+  }, {
+    "Answer1" : "Image file",
+    "Answer2" : "Video file",
+    "Answer3" : "Audio file",
+    "NumberOfCorrectAnswer" : 1,
+    "Question" : ".gif is an extension of"
+  }, {
+    "Answer1" : "Ctrl+Q",
+    "Answer2" : "Ctrl+Shift+Alt",
+    "Answer3" : "Ctrl+L",
+    "NumberOfCorrectAnswer" : 3,
+    "Question" : "What key combination is used to lock the computer?"
+  }, {
+    "Answer1" : "Elephant",
+    "Answer2" : "Koala bear",
+    "Answer3" : "Rabbit",
+    "NumberOfCorrectAnswer" : 1,
+    "Question" : "What animal with big ears can't jump?"
+  }, {
+    "Answer1" : "Crocodile",
+    "Answer2" : "Zebra",
+    "Answer3" : "Frog",
+    "NumberOfCorrectAnswer" : 3,
+    "Question" : "What animal has a tongue longer than its tail?"
+  }, {
+    "Answer1" : "Pandas",
+    "Answer2" : "Grizzly",
+    "Answer3" : "Koalas",
+    "NumberOfCorrectAnswer" : 1,
+    "Question" : "What are black and white bears called?"
+  }, {
+    "Answer1" : "Penguin",
+    "Answer2" : "Ostrich",
+    "Answer3" : "Pelican",
+    "NumberOfCorrectAnswer" : 2,
+    "Question" : "The largest bird in the world?"
+  }, {
+    "Answer1" : "Mercury",
+    "Answer2" : "Neptune",
+    "Answer3" : "Venus",
+    "NumberOfCorrectAnswer" : 3,
+    "Question" : "The second planet from the sun."
+  }, {
+    "Answer1" : "Mercury",
+    "Answer2" : "Mars",
+    "Answer3" : "Venus",
+    "NumberOfCorrectAnswer" : 2,
+    "Question" : "This planet has two moons: Phobos and Deimos."
+  }, {
+    "Answer1" : "Mars and Jupiter",
+    "Answer2" : "Earth and Mars",
+    "Answer3" : "Jupiter and Saturn",
+    "NumberOfCorrectAnswer" : 1,
+    "Question" : "Between which planets does the asteroid belt lie?"
+  }, {
+    "Answer1" : "White dwarf",
+    "Answer2" : "Red giant",
+    "Answer3" : "Red supergiant",
+    "NumberOfCorrectAnswer" : 1,
+    "Question" : "Which star is older?"
+  }, {
+    "Answer1" : "Mercury",
+    "Answer2" : "Jupiter",
+    "Answer3" : "Neptune",
+    "NumberOfCorrectAnswer" : 2,
+    "Question" : "Which planet has the most satellites?"
+  }, {
+    "Answer1" : "Mercury",
+    "Answer2" : "Jupiter",
+    "Answer3" : "Neptune",
+    "NumberOfCorrectAnswer" : 1,
+    "Question" : "Which planet doesn't have satellites?"
+  }, {
+    "Answer1" : "Mars",
+    "Answer2" : "Jupiter",
+    "Answer3" : "Mercury",
+    "NumberOfCorrectAnswer" : 3,
+    "Question" : "The smallest planet in the solar system."
+  }, {
+    "Answer1" : "Octopus",
+    "Answer2" : "Gorilla",
+    "Answer3" : "Frog",
+    "NumberOfCorrectAnswer" : 1,
+    "Question" : "What animal has three hearts?"
+  }, {
+    "Answer1" : "Swift",
+    "Answer2" : "Hummingbird",
+    "Answer3" : "Sparrow",
+    "NumberOfCorrectAnswer" : 2,
+    "Question" : "A bird that can fly both head and tail forward."
+  }, {
+    "Answer1" : "Goose",
+    "Answer2" : "Cat",
+    "Answer3" : "Donkey",
+    "NumberOfCorrectAnswer" : 2,
+    "Question" : "A pet that is considered the most stubborn."
+  }, {
+    "Answer1" : "Cheetah",
+    "Answer2" : "Swift",
+    "Answer3" : "Peregrine",
+    "NumberOfCorrectAnswer" : 2,
+    "Question" : "The fastest beast."
+  } ],
+  "RoundTime" : 300
+}
