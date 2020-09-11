@@ -1,0 +1,17 @@
+{
+    "name": "OculusVideo",
+    "references": [
+        "GUID:1768606ea63afc849bd2976434d0f493"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
