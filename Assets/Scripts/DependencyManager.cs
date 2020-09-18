@@ -72,8 +72,7 @@ public class DependencyManager : MonoBehaviour
             SoundManager = soundManager,
             TeleportController = teleportController,
             ScoreDataProvider = new JSONDataLoader(),
-            //ScoreDataProvider = new FirebaseScoreDataLoader(),
-            QuizDataProvider = new JSONQuizDataProvider(),
+            QuizDataProvider = new FirebaseQuizDataLoader(),   //or JSONQuizDataLoader
             HoleControllers = holeControllerInterfaces,
             EasterEggHoleController = easterEggHoleController,
         };

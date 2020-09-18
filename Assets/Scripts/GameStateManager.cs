@@ -334,30 +334,27 @@ public class GameStateManager : MonoBehaviour
         scoreBoard.SetLoadingTooltip();
         scoreBoard.ShowBoard(true);
 
+        var transaction = new ScoreTransaction(scoreDataProvider);
+
         var scrollMode = ScoreBoardHelper.ScrollMode.ResetToBegin;
 
-        if (entryToAdd != null)
+        Action onTransactionStart = () =>
         {
-            scoreDataProvider.SaveScoreEntryAsync(MakeScoreBoardEntry(entryToAdd), () =>
+            // If user has entered the name, then try to add new entry
+            if (entryToAdd != null)
             {
-                scoreDataProvider.LoadScoreDataAsync((sender, args) =>
-                {
-                    scoreBoard.RefreshBoard(args.data);
-                    scoreBoard.ScrollBoard(scrollMode);
-                });
-            });
-        }
-        else
-        {
-            scoreDataProvider.LoadScoreDataAsync((sender, args) =>
-            {
-                scoreBoard.RefreshBoard(args.data);
-                scoreBoard.ScrollBoard(scrollMode);
-            });
-        }
+                AddScoreBoardEntry(transaction, entryToAdd);
+            }
+
+            scoreBoard.RefreshBoard(transaction);
+            scoreBoard.ScrollBoard(scrollMode);
+        };
+        Action<ScoreLoadingError> onTransactionFailed = (status) => Debug.LogError("Failed to start transaction");
+
+        transaction.ExecuteAsyncTransaction(onTransactionStart, onTransactionFailed);
     }
 
-    private PlayerDataModel MakeScoreBoardEntry(string name)
+    private void AddScoreBoardEntry(ScoreTransaction transaction, string name)
     {
         // Collect entry data
         float sessionTime = gameSessionDurationSeconds - Mathf.Max(0.0f, gameSessionTimer);
@@ -365,8 +362,10 @@ public class GameStateManager : MonoBehaviour
         var quizResult = questionSequence.GetResult();
         int correctAnswers = quizResult.CorrectAswers;
 
+        Debug.Assert(transaction.HasPendingTransaction(), "Transaction was not started");
+
         // Add entry to the database
-        return new PlayerDataModel(name, correctAnswers, sessionTime);
+        transaction.AddEntry(new PlayerDataModel(name, correctAnswers, sessionTime));
     }
 
     /// <summary>
@@ -419,20 +418,18 @@ public class GameStateManager : MonoBehaviour
         scoreBoard.SetLoadingTooltip();
         scoreBoard.ShowBoard(true);
 
-        scoreDataProvider.LoadScoreDataAsync((sender, args) =>
+        var transaction = new ScoreTransaction(scoreDataProvider);
+        Action onTransactionStart = () =>
         {
-            if (args.status == ScoreLoadingStatus.Ok)
-            {
-                scoreBoard.RefreshBoard(args.data);
-                scoreBoard.ScrollBoard(ScoreBoardHelper.ScrollMode.ResetToBegin);
-                // TODO: Save
+            scoreBoard.RefreshBoard(transaction);
+            scoreBoard.ScrollBoard(ScoreBoardHelper.ScrollMode.ResetToBegin);
+        };
+        Action<ScoreLoadingError> onTransactionFailed = (status) =>
+        {
+            Debug.LogError("Failed to start transaction");
+        };
 
-            }
-            else
-            {
-                scoreBoard.ClearBoard();
-            }
-        });
+        transaction.ExecuteAsyncTransaction(onTransactionStart, onTransactionFailed);
     }
 
     /// <summary>

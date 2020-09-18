@@ -35,7 +35,7 @@ public class ScoreTransaction
     {
         dataProvider = provider;
     }
-#if false
+
     /// <summary>
     /// Execute transaction asyncronously.
     /// <param name="onTransactionOpen">This callback called if transaction was started successfully</param>
@@ -44,10 +44,7 @@ public class ScoreTransaction
     public async void ExecuteAsyncTransaction(Action onTransactionOpen, Action<ScoreLoadingError> onTrnsactionFailed)
     {
         Debug.Assert(HasPendingTransaction() == false, "Failed to execute async transaction. The transaction was already opened");
-
         ScoreLoadingError status = await Task.Run(() => BeginTransaction());
-
-        database = await
 
         if (status == ScoreLoadingError.Ok || status == ScoreLoadingError.FileOrDirectoryNotFound)
         {
@@ -92,6 +89,7 @@ public class ScoreTransaction
     /// </summary>
     private ScoreLoadingError BeginTransaction()
     {
+        Thread.Sleep(3000);
         ScoreLoadingError errorCode = ScoreLoadingError.Ok;
         if (database == null)
         {
@@ -137,5 +135,4 @@ public class ScoreTransaction
             Debug.LogError("EndTransaction() is called without matching BeginTransaction call()");
         }
     }
-    #endif
 }

@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-public enum ScoreLoadingStatus
+public enum ScoreLoadingError
 {
     Ok,
     FileOrDirectoryNotFound,
-    DatabaseError,
     UnknownError
 };
-
-public class OnScoreDataLoadedEventArgs : EventArgs
-{
-    public ScoreLoadingStatus status;
-    public string errorMessage;
-    public List<PlayerDataModel> data;
-}
 
 /// <summary>
 /// The classes, that implements this interface, should contains functional for save/load game data.
@@ -22,19 +13,20 @@ public class OnScoreDataLoadedEventArgs : EventArgs
 /// code of work with loader.
 /// </summary>
 public interface IDataLoader
-{
-    /// <summary>
+{    /// <summary>
     /// This method is used for loading data. It return true if data loaded correctly and false else.
     /// In addition it return the message with description of operation result.
     /// </summary>
     /// <param name="loadedData">list of loaded data models</param>
     /// <param name="resultMessage">message with result of operation (success or error description)</param>
     /// <returns></returns>
-    void LoadScoreDataAsync(EventHandler<OnScoreDataLoadedEventArgs> callback);
+    List<PlayerDataModel> LoadScoreData(out ScoreLoadingError errorCode, out string resultMessage);
 
     /// <summary>
     /// This method is used for saving your data
     /// </summary>
     /// <param name="scoreDataPack">data for saving</param>
-    void SaveScoreEntryAsync(PlayerDataModel entry, Action callback);
+    void SaveScoreData(List<PlayerDataModel> scoreDataPack);
+
+    //Maybe we can use Data loader for loading questions too
 }

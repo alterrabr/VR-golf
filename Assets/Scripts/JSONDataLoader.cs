@@ -2,8 +2,6 @@
 using Newtonsoft.Json;
 using System.IO;
 using UnityEngine;
-using System;
-using System.Threading.Tasks;
 
 /// <summary>
 /// This version of DataLoader works with JSON files
@@ -33,78 +31,52 @@ public class JSONDataLoader : IDataLoader
     /// <param name="loadedData">list of loaded data models</param>
     /// <param name="resultMessage">message with result of operation (success or error description)</param>
     /// <returns></returns>
-
-    public async void LoadScoreDataAsync(EventHandler<OnScoreDataLoadedEventArgs> callback)
+    public List<PlayerDataModel> LoadScoreData(out ScoreLoadingError errorCode, out string resultMessage)
     {
-        var errorCode = ScoreLoadingStatus.Ok;
-        string errorMessage = "";
-
-        List<PlayerDataModel> data = await Task.Run(DoLoadingOperation);
-
-        var args = new OnScoreDataLoadedEventArgs()
-        {
-            status = errorCode,
-            errorMessage = errorMessage,
-            data = data
-        };
-
-        callback?.Invoke(this, args);
-    }
-
-    private List<PlayerDataModel> DoLoadingOperation()
-    {
+        errorCode = ScoreLoadingError.Ok;
         string path = Path.Combine(AppPersistentDataPath, savesFolderPath);
         DirectoryInfo dirInfo = new DirectoryInfo(path);
-        path = Path.Combine(path, scoreFileName);
-#if false
+
         if (!dirInfo.Exists)
         {
-            errorCode = ScoreLoadingStatus.FileOrDirectoryNotFound;
-            errorMessage = "Directory " + path + " not found";
+            errorCode = ScoreLoadingError.FileOrDirectoryNotFound;
+            resultMessage = "Directory " + path + " not found";
+            return null;
         }
         path = Path.Combine(path, scoreFileName);
 
-        if (!File.Exists(path))
+        if(!File.Exists(path))
         {
-            errorCode = ScoreLoadingStatus.FileOrDirectoryNotFound;
-            errorMessage = "File " + path + " not found";
+            errorCode = ScoreLoadingError.FileOrDirectoryNotFound;
+            resultMessage = "File " + path + " not found";
+            return null;
         }
-#endif
-        try
+        using (StreamReader file = File.OpenText(path))
         {
-            using (StreamReader file = File.OpenText(path))
+            try
             {
-                try
-                {
-                    JsonSerializer serializer = new JsonSerializer();
-                    var result = (List<PlayerDataModel>)serializer.Deserialize(file, typeof(List<PlayerDataModel>));
-                    if (result == null)
-                    {
-                        result = new List<PlayerDataModel>();
-                    }
-                    return result;
-                }
-                catch (JsonSerializationException ex)
-                {
-                    // TODO: Log errors
-                    return new List<PlayerDataModel>();
-                }
+                JsonSerializer serializer = new JsonSerializer();
+                resultMessage = "Score data loaded correctly";
+                return (List<PlayerDataModel>)serializer.Deserialize(file, typeof(List<PlayerDataModel>));
             }
-        }
-        catch (Exception e)
-        {
-            return new List<PlayerDataModel>();
+            catch(JsonSerializationException ex)
+            {
+                errorCode = ScoreLoadingError.UnknownError;
+                resultMessage = "JSON Data loader: " + ex.Message;
+                return null;
+            }
         }
     }
 
-    public async void SaveScoreEntryAsync(PlayerDataModel entry, Action callback)
+    /// <summary>
+    /// Save data into the JSON file.
+    /// This method will create folder and file if it not found they.
+    /// It will rewrite file if it exist.
+    /// </summary>
+    /// <param name="scoreDataPack">data for saving</param>
+    public void SaveScoreData(List<PlayerDataModel> scoreDataPack)
     {
-        var data = await Task.Run(DoLoadingOperation);
-
-        data.Add(entry);
-
         string path = Path.Combine(Application.persistentDataPath, savesFolderPath);
-
         DirectoryInfo dirInfo = new DirectoryInfo(path);
         if (!dirInfo.Exists)
         {
@@ -126,7 +98,7 @@ public class JSONDataLoader : IDataLoader
             try
             {
                 JsonSerializer serializer = new JsonSerializer();
-                serializer.Serialize(writer, data);
+                serializer.Serialize(writer, scoreDataPack);
                 Debug.Log("Saving completed correctly");
             }
             catch (JsonSerializationException ex)
@@ -134,7 +106,5 @@ public class JSONDataLoader : IDataLoader
                 Debug.LogError("JSON Data loader: " + ex.Message);
             }
         }
-
-        callback?.Invoke();
     }
 }

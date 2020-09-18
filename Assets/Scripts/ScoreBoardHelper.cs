@@ -42,7 +42,7 @@ public class ScoreBoardHelper
     /// Refresh scoreboard data
     /// <param name="transaction">Reference to a valid transaction. Transaction will be opened it was not already</param>
     /// </summary>
-    public void RefreshBoard(List<PlayerDataModel> data)
+    public void RefreshBoard(ScoreTransaction transaction)
     {
         // Remember current state
         var state = scoreboard.Active;
@@ -51,37 +51,44 @@ public class ScoreBoardHelper
         scoreboard.ShowBoard(false);
 
         scoreboard.ClearBoard();
-        // TODO: This probably should be optimized in the future
-        var sortedData = new List<PlayerDataModel>(data);
-        sortedData.Sort((x, y) =>
+        if (transaction.HasPendingTransaction())
         {
-            if (x.CorrectAnswers == y.CorrectAnswers)
+            // TODO: This probably should be optimized in the future
+            var sortedData = new List<PlayerDataModel>(transaction.Database);
+            sortedData.Sort((x, y) =>
             {
-                if (x.Time < y.Time)
+                if (x.CorrectAnswers == y.CorrectAnswers)
                 {
-                    return -1;
+                    if (x.Time < y.Time)
+                    {
+                        return -1;
+                    }
+                    if (x.Time == y.Time)
+                    {
+                        return 0;
+                    }
+                    if (x.Time == y.Time)
+                    {
+                        return 1;
+                    }
                 }
-                if (x.Time == y.Time)
-                {
-                    return 0;
-                }
-                if (x.Time == y.Time)
+                if (x.CorrectAnswers < y.CorrectAnswers)
                 {
                     return 1;
                 }
-            }
-            if (x.CorrectAnswers < y.CorrectAnswers)
-            {
-                return 1;
-            }
-            if (x.CorrectAnswers > y.CorrectAnswers)
-            {
-                return -1;
-            }
-            return 0;
-        });
+                if (x.CorrectAnswers > y.CorrectAnswers)
+                {
+                    return -1;
+                }
+                return 0;
+            });
 
-        scoreboard.SetData(sortedData);
+            scoreboard.SetData(sortedData);
+        }
+        else
+        {
+            Debug.LogError("Transaction is not open");
+        }
 
         // Restore previous state
         scoreboard.ShowBoard(state);
